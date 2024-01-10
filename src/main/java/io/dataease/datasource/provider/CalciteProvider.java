@@ -367,18 +367,6 @@ public class CalciteProvider {
                                 schema = JdbcSchema.create(rootSchema, ds.getSchemaAlias(), dataSource, null, configuration.getSchema());
                                 rootSchema.add(ds.getSchemaAlias(), schema);
                                 break;
-                            case h2:
-                                configuration = JsonUtil.parseObject(ds.getConfiguration(), H2.class);
-                                dataSource.setUrl(configuration.getJdbc());
-                                dataSource.setUsername(configuration.getUsername());
-                                dataSource.setPassword(configuration.getPassword());
-                                dataSource.setInitialSize(configuration.getInitialPoolSize());
-                                dataSource.setMaxTotal(configuration.getMaxPoolSize());
-                                dataSource.setMinIdle(configuration.getMinPoolSize());
-                                dataSource.setDefaultQueryTimeout(Integer.valueOf(configuration.getQueryTimeout()));
-                                schema = JdbcSchema.create(rootSchema, ds.getSchemaAlias(), dataSource, null, configuration.getDataBase());
-                                rootSchema.add(ds.getSchemaAlias(), schema);
-                                break;
                             default:
                                 configuration = JsonUtil.parseObject(ds.getConfiguration(), Mysql.class);
                                 dataSource.setUrl(configuration.getJdbc());
@@ -551,9 +539,6 @@ public class CalciteProvider {
                 break;
             case ck:
                 configuration = JsonUtil.parseObject(coreDatasource.getConfiguration(), CK.class);
-                break;
-            case h2:
-                configuration = JsonUtil.parseObject(coreDatasource.getConfiguration(), H2.class);
                 break;
             default:
                 configuration = JsonUtil.parseObject(coreDatasource.getConfiguration(), Mysql.class);
